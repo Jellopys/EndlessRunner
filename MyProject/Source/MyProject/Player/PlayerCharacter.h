@@ -46,8 +46,11 @@ protected:
 	UCameraComponent* GetCamera() const { return Camera; }
 
 	// Inputs
-	void MoveForward(float Val);
-	void MoveRight(float Val);
+	FVector InputVector;
+	void MoveUp();
+	void MoveRight();
+	void MoveDown();
+	void MoveLeft();
 	void Space();
 	
 };

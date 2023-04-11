@@ -19,17 +19,15 @@ ABaseProjectile::ABaseProjectile()
 	Mesh->SetEnableGravity(false);
 }
 
-void ABaseProjectile::Deactivate()
-{
-	SetActiveStatus(false);
-	OnPooledObjectDespawn.Broadcast(this);
-}
+// void ABaseProjectile::Deactivate()
+// {
+// 	SetActiveStatus(false);
+// 	// OnPooledObjectDespawn.Broadcast(this);
+// }
 
 void ABaseProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	OnActive();
-	Active = true;	
 }
 
 void ABaseProjectile::Tick(float DeltaTime)
@@ -40,15 +38,13 @@ void ABaseProjectile::Tick(float DeltaTime)
 	{
 		return;
 	}
-	LifeTime += DeltaTime;
-	if (LifeTime > MaxLifeTime)
-	{
-		SetActiveStatus(false);
-	}
-	else
-	{
-		MoveProjectile(DeltaTime);
-	}
+	// LifeTime += DeltaTime;
+	// if (LifeTime > MaxLifeTime)
+	// {
+	// 	SetActiveStatus(false);
+	// }
+	
+	MoveProjectile(DeltaTime);
 }
 
 
@@ -68,7 +64,7 @@ void ABaseProjectile::MoveProjectile(float DeltaTime)
 
 void ABaseProjectile::SetActiveStatus(bool Status)
 {
-	OnHit();
+	// OnHit();
 	if (!bUsePool)
 	{
 		Destroy();
@@ -82,47 +78,47 @@ void ABaseProjectile::SetActiveStatus(bool Status)
 		Active = Status;
 		LifeTime = 0.0f;
 		
-		if (!Status)
-			ReturnToPool();
+		// if (!Status)
+		// 	ReturnToPool();
 	}
 }
 
-void ABaseProjectile::SetPoolIndex(int Index)
-{
-	PoolIndex = Index;
-}
+// void ABaseProjectile::SetPoolIndex(int Index)
+// {
+// 	PoolIndex = Index;
+// }
+//
+// void ABaseProjectile::SetLifeTime(int Time)
+// {
+// 	LifeTime = Time;
+// }
+//
+// int ABaseProjectile::GetPoolIndex()
+// {
+// 	return PoolIndex;
+// }
+//
+// bool ABaseProjectile::IsActive()
+// {
+// 	return Active;
+// }
 
-void ABaseProjectile::SetLifeTime(int Time)
-{
-	LifeTime = Time;
-}
+// void ABaseProjectile::OnActive()
+// {
+// 	
+// }
+//
+// void ABaseProjectile::ReturnToPool()
+// {
+//
+// }
+//
+// void ABaseProjectile::OnHit()
+// {
+// 	
+// }
 
-int ABaseProjectile::GetPoolIndex()
-{
-	return PoolIndex;
-}
-
-bool ABaseProjectile::IsActive()
-{
-	return Active;
-}
-
-void ABaseProjectile::OnActive()
-{
-	
-}
-
-void ABaseProjectile::ReturnToPool()
-{
-
-}
-
-void ABaseProjectile::OnHit()
-{
-	
-}
-
-void ABaseProjectile::SpawnFromPool()
-{
-	SetActiveStatus(true);
-}
+// void ABaseProjectile::SpawnFromPool()
+// {
+// 	SetActiveStatus(true);
+// }

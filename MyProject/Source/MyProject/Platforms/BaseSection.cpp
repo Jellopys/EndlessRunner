@@ -1,5 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
-
+﻿// Richard Hill
 
 #include "BaseSection.h"
 
@@ -7,11 +6,15 @@
 // Sets default values
 ABaseSection::ABaseSection()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	// PrimaryActorTick.bCanEverTick = true;
 }
 
-// Called when the game starts or when spawned
+// void ABaseSection::Deactivate()
+// {
+// 	SetActiveStatus(false);
+// 	// OnPooledObjectDespawn.Broadcast(this);
+// }
+
 void ABaseSection::BeginPlay()
 {
 	Super::BeginPlay();
@@ -22,5 +25,65 @@ void ABaseSection::BeginPlay()
 void ABaseSection::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	// if (!Active)
+	// 	return;
+	//
+	// LifeTime += DeltaTime;
+	// if (LifeTime > MaxLifeTime)
+	// {
+	// 	SetActiveStatus(false);
+	// }
 }
+
+// void ABaseSection::SetPoolIndex(int Index)
+// {
+// 	PoolIndex = Index;
+// }
+//
+// void ABaseSection::SetLifeTime(int Time)
+// {
+// 	LifeTime = Time;
+// }
+//
+// int ABaseSection::GetPoolIndex()
+// {
+// 	return PoolIndex;
+// }
+//
+// bool ABaseSection::IsActive()
+// {
+// 	return Active;
+// }
+//
+// void ABaseSection::OnActive()
+// {
+// 	
+// }
+//
+// void ABaseSection::SpawnFromPool()
+// {
+// }
+//
+// void ABaseSection::ReturnToPool()
+// {
+// }
+//
+// void ABaseSection::SetActiveStatus(bool Status)
+// {
+// 	if (!bUsePool)
+// 	{
+// 		Destroy();
+// 	}
+// 	else
+// 	{
+// 		SetActorHiddenInGame(!Status);
+// 		PrimaryActorTick.bCanEverTick = Status;
+// 		Active = Status;
+// 		LifeTime = 0.0f;
+// 		
+// 		if (!Status)
+// 			ReturnToPool();
+// 	}
+// }
 
