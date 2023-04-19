@@ -3,6 +3,10 @@
 #include "ObjectPoolManager.h"
 
 #include "Algo/RandomShuffle.h"
+#include "Kismet/GameplayStatics.h"
+#include "ObjectPoolComponent.h"
+#include "EndlessGameMode.h"
+#include "PooledObject.h"
 
 AObjectPoolManager::AObjectPoolManager()
 {
@@ -14,22 +18,29 @@ AObjectPoolManager::AObjectPoolManager()
 void AObjectPoolManager::BeginPlay()
 {
 	Super::BeginPlay();
+
+	World = GetWorld();
+	GameMode = Cast<AEndlessGameMode>(UGameplayStatics::GetGameMode(World));
 	
 	CreateSpawnLocations();
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &AObjectPoolManager::SpawnSections, LoopTimer, true, 0.5f);
 
 	for (int i = 0; i < 5; i++)
 	{
-		APooledObject* Section = SectionPoolComponent->SpawnPoolObject();
-		Section->SetActorLocation(FVector(0, SectionLength * i, 0));
+		TObjectPtr<APooledObject> const Section = SectionPoolComponent->SpawnPoolObject();
+		Section->SetActorLocation(FVector(0, SectionLength * SpawnIndex, 0));
 		SpawnIndex++;
 	}
+
+	SpawnSections();
+	
+	// GetWorldTimerManager().SetTimer(TimerHandle, this, &AObjectPoolManager::SpawnSections,
+	// 	GameMode->SpawnMultiplier * GameMode->DifficultyMultiplier, false, 0);
 }
 
 void AObjectPoolManager::SpawnSections()
 {
 	APooledObject* Section = SectionPoolComponent->SpawnPoolObject();
-
+	
 	// Set location of the newly spawned object.
 	Section->SetActorLocation(FVector(0, SectionLength * SpawnIndex, 0));
 	
@@ -37,6 +48,11 @@ void AObjectPoolManager::SpawnSections()
 	
 	SpawnObstacles();
 	
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &AObjectPoolManager::SpawnSections,
+		0.1f, false, GameMode->SpawnMultiplier * GameMode->DifficultyMultiplier);
+
+	
+
 	// PickupsPoolComponent->SpawnPoolObject();
 	// ObstaclesPoolComponent->SpawnPoolObject();
 }

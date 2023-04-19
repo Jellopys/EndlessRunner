@@ -3,13 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
-#include "GameFramework/Pawn.h"
-#include "GameFramework/SpringArmComponent.h"
+// #include "Camera/CameraComponent.h"
+// #include "Components/CapsuleComponent.h"
+// #include "GameFramework/Pawn.h"
+// #include "GameFramework/SpringArmComponent.h"
 #include "PlayerCharacter.generated.h"
 
 class UPlayerMovementComponent;
+class UCameraComponent;
+class UCapsuleComponent;
+class APawn;
+class USpringArmComponent;
 
 UCLASS()
 class MYPROJECT_API APlayerCharacter : public APawn
@@ -22,28 +26,29 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 	// Components
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UStaticMeshComponent* Mesh;
+	TObjectPtr<UStaticMeshComponent> Mesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UCapsuleComponent* Capsule;
+	TObjectPtr<UCapsuleComponent> Capsule;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UCameraComponent* Camera;
+	TObjectPtr<UCameraComponent> Camera;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	USpringArmComponent* SpringArm;
+	TObjectPtr<USpringArmComponent> SpringArm;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UPlayerMovementComponent* MovementComponent;
+	TObjectPtr<UPlayerMovementComponent> MovementComponent;
 	
-	APlayerController* PlayerController;
+	UPROPERTY()
+	TObjectPtr<APlayerController> PlayerController;
 
 	// Functions
 	void UpdateHealth(int IncomingHealth);
 
 	// Getters
-	UCapsuleComponent* GetCapsule() const { return Capsule; }
-	UCameraComponent* GetCamera() const { return Camera; }
+	TObjectPtr<UCapsuleComponent> GetCapsule() const { return Capsule; }
+	TObjectPtr<UCameraComponent> GetCamera() const { return Camera; }
 
 	// Inputs
 	FVector InputVector;

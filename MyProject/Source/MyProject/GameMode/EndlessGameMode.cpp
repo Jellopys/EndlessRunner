@@ -3,6 +3,8 @@
 
 #include "EndlessGameMode.h"
 
+#include "PooledObject.h"
+
 
 // Sets default values
 AEndlessGameMode::AEndlessGameMode()
@@ -20,6 +22,7 @@ void AEndlessGameMode::AddPoints()
 
 void AEndlessGameMode::CreatePlatformSection()
 {
+
 }
 
 APlayerCharacter* AEndlessGameMode::GetPlayerRef()
@@ -36,5 +39,10 @@ void AEndlessGameMode::BeginPlay()
 void AEndlessGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (DifficultyMultiplier >= 3) return;
+	
+	DifficultyMultiplier += DeltaTime * 0.1f;
+	UE_LOG(LogTemp,Warning, TEXT("DifficultyMultiplier is: %f"), DifficultyMultiplier);
 }
 

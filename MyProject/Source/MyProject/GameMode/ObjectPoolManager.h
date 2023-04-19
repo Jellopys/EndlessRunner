@@ -2,11 +2,13 @@
 
 #pragma once
 
-#include "MyProject/Projectiles/BaseProjectile.h"
 #include "CoreMinimal.h"
-#include "ObjectPoolComponent.h"
 #include "GameFramework/Actor.h"
 #include "ObjectPoolManager.generated.h"
+
+class AEndlessGameMode;
+class UObjectPoolComponent;
+class APooledObject;
 
 UCLASS()
 class MYPROJECT_API AObjectPoolManager : public AActor
@@ -17,11 +19,11 @@ public:
 	AObjectPoolManager();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UObjectPoolComponent* SectionPoolComponent;
+	TObjectPtr<UObjectPoolComponent> SectionPoolComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UObjectPoolComponent* PickupsPoolComponent;
+	TObjectPtr<UObjectPoolComponent> PickupsPoolComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UObjectPoolComponent* ObstaclesPoolComponent;
+	TObjectPtr<UObjectPoolComponent> ObstaclesPoolComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<TSubclassOf<APooledObject>> Sections;
@@ -33,7 +35,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SectionLength = 3000;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float LoopTimer = 2.0f;
+	float LoopTimer = 2;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DifficultyMultiplier = 1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -42,7 +44,6 @@ public:
 	TArray<FVector> PickupSpawnLocations;
 	
 	int PoolSize = 20;
-	float PooledObjectLifeSpan = 0.0f;
 
 	UFUNCTION(BlueprintCallable)
 	void SpawnSections();
@@ -51,10 +52,18 @@ public:
 
 	void CreateSpawnLocations();
 
-	int SpawnIndex = 0;
 
 	FTimerHandle TimerHandle;
 	
 protected:
 	virtual void BeginPlay() override;
+	
+	
+	int SpawnIndex = 0;
+	
+	UPROPERTY()
+	TObjectPtr<AEndlessGameMode> GameMode;
+	// AEndlessGameMode* GameMode;
+	UPROPERTY()
+	TObjectPtr<UWorld> World;
 };

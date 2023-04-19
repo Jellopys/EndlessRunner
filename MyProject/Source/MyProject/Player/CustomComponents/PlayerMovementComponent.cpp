@@ -1,6 +1,7 @@
 ﻿// Richard Hill
 
 #include "PlayerMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "MyProject/Player/PlayerCharacter.h"
 
 UPlayerMovementComponent::UPlayerMovementComponent()
@@ -15,6 +16,7 @@ void UPlayerMovementComponent::BeginPlay()
 	Super::BeginPlay();
 	Owner = GetPawnOwner();
 	World = GetWorld();
+	GameMode = Cast<AEndlessGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	
 	if (!Owner && !Owner->IsValidLowLevel())
 	{
@@ -42,7 +44,7 @@ void UPlayerMovementComponent::Move(float DeltaTime)
 		
 		UE_LOG(LogTemp,Warning,TEXT("Capsule or Owner is null"));
 		return;
-	}
+	}	
 
 	if (TimeElapsed < LerpDuration)
 	{
@@ -57,8 +59,7 @@ void UPlayerMovementComponent::Move(float DeltaTime)
 		TimeElapsed += DeltaTime;
 	}
 	
-	FVector MoveVector = FVector(0, MoveSpeed * DeltaTime, 0);
-	// FVector MoveVector = FVector(0, MoveSpeed * DeltaTime, 0);
+	FVector MoveVector = FVector(0, MoveSpeed * GameMode->DifficultyMultiplier * DeltaTime, 0);
 	SafeMoveUpdatedComponent(MoveVector, UpdatedComponent->GetComponentQuat(), true, Hit);
 }
 

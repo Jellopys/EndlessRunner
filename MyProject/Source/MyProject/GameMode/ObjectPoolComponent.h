@@ -2,9 +2,11 @@
 
 #pragma once
 
-#include "PooledObject.h"
+// #include "PooledObject.h"
 #include "ObjectPoolComponent.generated.h"
 
+class AEndlessGameMode;
+class APooledObject;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class MYPROJECT_API UObjectPoolComponent : public UActorComponent
@@ -18,13 +20,14 @@ public:
 	APooledObject* SpawnPoolObject();
 
 	UPROPERTY(EditAnywhere, Category = "Object Pool")
-	TArray<TSubclassOf<class APooledObject>> PooledObjectSubclass;
+	TArray<TSubclassOf<APooledObject>> PooledObjectSubclass;
 	
 	UPROPERTY(EditAnywhere, Category = "Object Pool")
 	int PoolSize = 20;
 
 	UPROPERTY(EditAnywhere, Category = "Object Pool")
-	float PooledObjectLifeSpan = 0.0f;
+	float PooledObjectBaseLifeSpan = 5;
+	
 
 	UFUNCTION()
 	void OnPooledObjectDespawn(APooledObject* PoolActor);
@@ -34,6 +37,12 @@ protected:
 
 	void InitializeObjects();
 
-	TArray<APooledObject*> ObjectPool;
+	UPROPERTY()
+	TObjectPtr<AEndlessGameMode> GameMode;
+	UPROPERTY()
+	TObjectPtr<UWorld> World;
+
+	TArray<TObjectPtr<APooledObject>> ObjectPool;
 	TArray<int> SpawnedPoolIndexes;
+	int PoolIndex = 0;
 };

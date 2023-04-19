@@ -15,7 +15,7 @@ public:
 	ABaseObstacle();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UStaticMeshComponent* Mesh;
+	TObjectPtr<UStaticMeshComponent> Mesh;
 
 protected:
 	virtual void BeginPlay() override;

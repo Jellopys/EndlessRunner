@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
+#include "MyProject/GameMode/EndlessGameMode.h"
 #include "MyProject/Player/PlayerCharacter.h"
 #include "PlayerMovementComponent.generated.h"
 
@@ -19,10 +20,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	float MoveSpeed = 100;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float LerpSpeed = 1;
-
-
+	
 	void MoveUp();
 	void MoveRight();
 	void MoveDown();
@@ -33,30 +31,31 @@ protected:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void Move(float DeltaTime);
 
-	FHitResult Hit;
+	UPROPERTY(EditAnywhere)
+	APlayerCharacter* PlayerCharacter;
 	UPROPERTY()
 	APawn* Owner;
 	UPROPERTY()
 	UCapsuleComponent* Capsule;
-	FVector MoveInput;
+	UPROPERTY()
+	AEndlessGameMode* GameMode;
+	UPROPERTY()
+	UWorld* World;
 
+	FHitResult Hit;
+	
 	float LerpDuration = 0.3;
 	float TimeElapsed = 0.3;
-	double StartTime;
-
-	UWorld* World;
+	
+	double Difficulty = 1;
 	
 	int CurrentXLoc = 1;
 	int CurrentZLoc = 0;
-	float PreviousX;
-	float PreviousZ;
 	float XDestination = 0;
 	float ZDestination = 300;
 
-	TArray<int> XLocations;
+	TArray<int> XLocations; // Might use this for cleaner code
 	TArray<int> ZLocations;
 
-	UPROPERTY(EditAnywhere)
-	APlayerCharacter* PlayerCharacter;
 	
 };

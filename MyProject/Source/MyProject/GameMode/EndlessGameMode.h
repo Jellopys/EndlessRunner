@@ -29,6 +29,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DifficultyMultiplier = 1;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SpawnMultiplier = 10;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float LifeTimeMultiplier = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CurrentScore = 0;
