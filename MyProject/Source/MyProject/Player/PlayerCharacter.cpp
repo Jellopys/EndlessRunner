@@ -54,6 +54,11 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("Space", IE_Pressed, this, &APlayerCharacter::Space);
 }
 
+void APlayerCharacter::UpdateHealth(int IncomingHealth)
+{
+	
+}
+
 void APlayerCharacter::MoveUp()
 {
 	MovementComponent->MoveUp();

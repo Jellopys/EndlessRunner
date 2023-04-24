@@ -25,12 +25,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UObjectPoolComponent> ObstaclesPoolComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<TSubclassOf<APooledObject>> Sections;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<TSubclassOf<APooledObject>> Pickups;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<TSubclassOf<APooledObject>> Obstacles;
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// TArray<TSubclassOf<APooledObject>> Sections;
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// TArray<TSubclassOf<APooledObject>> Pickups;
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// TArray<TSubclassOf<APooledObject>> Obstacles;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SectionLength = 3000;
@@ -63,7 +63,6 @@ protected:
 	
 	UPROPERTY()
 	TObjectPtr<AEndlessGameMode> GameMode;
-	// AEndlessGameMode* GameMode;
 	UPROPERTY()
 	TObjectPtr<UWorld> World;
 };

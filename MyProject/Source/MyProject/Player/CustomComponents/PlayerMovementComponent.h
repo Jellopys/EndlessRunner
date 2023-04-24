@@ -6,7 +6,6 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
 #include "MyProject/GameMode/EndlessGameMode.h"
-#include "MyProject/Player/PlayerCharacter.h"
 #include "PlayerMovementComponent.generated.h"
 
 
@@ -56,6 +55,4 @@ protected:
 
 	TArray<int> XLocations; // Might use this for cleaner code
 	TArray<int> ZLocations;
-
-	
 };

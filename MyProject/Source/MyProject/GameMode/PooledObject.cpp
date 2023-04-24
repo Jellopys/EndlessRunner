@@ -22,9 +22,8 @@ void APooledObject::SetActive(bool IsActive)
 	GetWorldTimerManager().SetTimer(LifeSpanTimer, this, &APooledObject::Deactivate, LifeSpan, false);
 }
 
-void APooledObject::SetLifeSpan(float LifeTime)
+void APooledObject::SetLifeTime(float LifeTime)
 {
-	Super::SetLifeSpan(LifeTime);
 	LifeSpan = LifeTime;
 }
 

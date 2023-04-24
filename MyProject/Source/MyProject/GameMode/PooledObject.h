@@ -22,7 +22,7 @@ public:
 	void Deactivate();
 
 	void SetActive(bool IsActive);
-	virtual void SetLifeSpan(float LifeTime) override;
+	virtual void SetLifeTime(float LifeTime);
 	void SetPoolIndex(int Index);
 
 	bool IsActive();

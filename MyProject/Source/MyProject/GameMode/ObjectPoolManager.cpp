@@ -32,9 +32,7 @@ void AObjectPoolManager::BeginPlay()
 	}
 
 	SpawnSections();
-	
-	// GetWorldTimerManager().SetTimer(TimerHandle, this, &AObjectPoolManager::SpawnSections,
-	// 	GameMode->SpawnMultiplier * GameMode->DifficultyMultiplier, false, 0);
+
 }
 
 void AObjectPoolManager::SpawnSections()
@@ -49,7 +47,7 @@ void AObjectPoolManager::SpawnSections()
 	SpawnObstacles();
 	
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &AObjectPoolManager::SpawnSections,
-		0.1f, false, GameMode->SpawnMultiplier * GameMode->DifficultyMultiplier);
+		0.1f, false, GameMode->SpawnMultiplier / GameMode->DifficultyMultiplier);
 
 	
 
@@ -62,7 +60,8 @@ void AObjectPoolManager::SpawnObstacles()
 	APooledObject* Obstacle = ObstaclesPoolComponent->SpawnPoolObject();
 
 	FVector XZ = ObstacleSpawnLocations[FMath::RandRange(0, 8)];
-	FVector SpawnLoc = FVector(XZ.X, SectionLength * SpawnIndex, XZ.Z);
+	// FVector SpawnLoc = FVector(XZ.X, SectionLength * SpawnIndex, XZ.Z);
+	FVector SpawnLoc = FVector(0, SectionLength * SpawnIndex, 500);
 	
 	// Set location of the newly spawned object
 	Obstacle->SetActorLocation(FVector(SpawnLoc));

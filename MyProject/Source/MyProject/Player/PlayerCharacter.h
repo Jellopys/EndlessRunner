@@ -44,6 +44,7 @@ protected:
 	TObjectPtr<APlayerController> PlayerController;
 
 	// Functions
+	UFUNCTION(BlueprintCallable)
 	void UpdateHealth(int IncomingHealth);
 
 	// Getters
