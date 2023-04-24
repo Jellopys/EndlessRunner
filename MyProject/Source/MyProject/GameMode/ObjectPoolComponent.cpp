@@ -7,7 +7,6 @@
 #include "PooledObject.h"
 #include "Algo/RandomShuffle.h"
 
-
 UObjectPoolComponent::UObjectPoolComponent()
 {
 }
@@ -20,7 +19,6 @@ void UObjectPoolComponent::BeginPlay()
 	GameMode = Cast<AEndlessGameMode>(UGameplayStatics::GetGameMode(World));
 	
 	InitializeObjects();
-	
 }
 
 void UObjectPoolComponent::InitializeObjects()
@@ -62,24 +60,8 @@ APooledObject* UObjectPoolComponent::SpawnPoolObject()
 		return PoolableActor;
 	}
 	
-	// for (APooledObject* PoolableActor : ObjectPool) // for each inactive poolable actor
-	// {
-	// 	if (PoolableActor != nullptr && !PoolableActor->IsActive()) // for each inactive poolable actor
-	// 	{
-	// 		PoolableActor->TeleportTo(FVector(0,0,0), FRotator(0,0,0));
-	// 		PoolableActor->SetLifeTime(GameMode->LifeTimeMultiplier / (GameMode->DifficultyMultiplier * 0.5f));
-	// 		PoolableActor->SetActive(true);
-	// 		SpawnedPoolIndexes.Add(PoolableActor->GetPoolIndex());
-	// 		return PoolableActor;
-	// 	}
-	// }
-
-	
-
 	if (SpawnedPoolIndexes.Num() > 0)
 	{
-		// UE_LOG(LogTemp,Warning,TEXT("asdf"));
-		// int PooledObjectIndex = FMath::RandRange(SpawnedPoolIndexes[0], SpawnedPoolIndexes.Num() - 1);
 		int const PooledObjectIndex = SpawnedPoolIndexes[0];
 		SpawnedPoolIndexes.Remove(PooledObjectIndex);
 		APooledObject* NewPoolableActor = ObjectPool[PooledObjectIndex];
