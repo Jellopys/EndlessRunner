@@ -5,32 +5,33 @@
 #include "CoreMinimal.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
+#include "MyProject/GameMode/PooledObject.h"
 #include "BaseProjectile.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPooledObjectDespawn, ABaseProjectile*, PoolActor);
+// DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPooledObjectDespawn, ABaseProjectile*, PoolActor);
 
 UCLASS()
-class MYPROJECT_API ABaseProjectile : public AActor
+class MYPROJECT_API ABaseProjectile : public APooledObject
 {
 	GENERATED_BODY()
 
 public:
 	ABaseProjectile();
 
-	UFUNCTION(BlueprintCallable)
-	void Deactivate();
+	// UFUNCTION(BlueprintCallable)
+	// void Deactivate();
 
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
 	// Delegate
-	FOnPooledObjectDespawn OnPooledObjectDespawn;
+	// FOnPooledObjectDespawn OnPooledObjectDespawn;
 
 	// Components
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USphereComponent* Sphere;
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* Mesh;
 	
 	// Variables
@@ -41,14 +42,14 @@ protected:
 	bool bUsePool = true;
 
 	// Functions
-	void SetPoolIndex(int Index);
-	void SetLifeTime(int Time);
-	int GetPoolIndex();
-	bool IsActive();
-	void OnActive();
-	void SpawnFromPool();
-	void ReturnToPool();
-	void OnHit();
+	// void SetPoolIndex(int Index);
+	// void SetLifeTime(int Time);
+	// int GetPoolIndex();
+	// bool IsActive();
+	// void OnActive();
+	// void SpawnFromPool();
+	// void ReturnToPool();
+	// void OnHit();
 	void MoveProjectile(float DeltaTime);
 	void SetActiveStatus(bool Status);
 
