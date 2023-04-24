@@ -1,6 +1,6 @@
 # EndlessRunner
  
-This is an endless runner game where you dodge the boxes coming at you and gain points each second. 
+This is an endless runner game where you dodge the boxes coming at you and gain points each second you stay alive. You have three lives. If you get hit, you become invulnerable for 3 sec.
 
 # Part 1
 I used object pooling to place out the obstacles and sections of the game. I have an "ObjectPoolManager.cpp" that contains "ObjectPoolComponent.cpp" Components that contains the object pooling and spawning.
