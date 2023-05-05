@@ -48,11 +48,6 @@ void AObjectPoolManager::SpawnSections()
 	
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &AObjectPoolManager::SpawnSections,
 		0.1f, false, GameMode->SpawnMultiplier / GameMode->DifficultyMultiplier);
-
-	
-
-	// PickupsPoolComponent->SpawnPoolObject();
-	// ObstaclesPoolComponent->SpawnPoolObject();
 }
 
 void AObjectPoolManager::SpawnObstacles()

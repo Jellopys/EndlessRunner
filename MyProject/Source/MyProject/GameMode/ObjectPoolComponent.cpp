@@ -90,34 +90,3 @@ void UObjectPoolComponent::OnPooledObjectDespawn(APooledObject* PoolActor)
 }
 
 
-
-
-
-
-
-
-// // Hardcoded = PooledObjectSubclass[0] , which is Sections
-// APooledObject* NewSection = World->SpawnActor<APooledObject>(PooledObjectSubclass[0], FVector().ZeroVector, FRotator().ZeroRotator);
-//
-// // Hardcoded = PooledObjectSubclass[1] , which is Obstacles
-// APooledObject* NewObstacle = World->SpawnActor<APooledObject>(PooledObjectSubclass[1], FVector().ZeroVector, FRotator().ZeroRotator);
-//
-//
-// if (NewSection != nullptr)
-// {
-// 	NewSection->SetActive(false);
-// 	NewSection->SetPoolIndex(PoolSize + PoolIndex);
-// 	NewSection->OnPooledObjectDespawn.AddDynamic(this, &UObjectPoolComponent::OnPooledObjectDespawn);
-// 	ObjectPool.Add(NewSection);
-// }
-//
-// if (NewObstacle != nullptr)
-// {
-// 	NewObstacle->SetActive(false);
-// 	NewObstacle->SetPoolIndex(PoolSize + PoolIndex);
-// 	NewObstacle->OnPooledObjectDespawn.AddDynamic(this, &UObjectPoolComponent::OnPooledObjectDespawn);
-// 	ObjectPool.Add(NewObstacle);
-// }
-// PoolIndex++;
-
-
