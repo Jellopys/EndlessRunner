@@ -2,6 +2,13 @@
  
 This is an endless runner game where you dodge the boxes coming at you and gain points each second you stay alive. You have three lives. If you get hit, you become invulnerable for 3 sec.
 
+# Controls
+Player one:
+WASD
+
+Player two:
+Arrow keys
+
 # Part 1
 I used object pooling to place out the obstacles and sections of the game. I have an "ObjectPoolManager.cpp" that contains "ObjectPoolComponent.cpp" Components that contains the object pooling and spawning.
 I created several Base classes such as BaseObstacle, BaseSection and BaseProjectile that I can make blueprints of and expand on their behaviors with class inheritance later on. The base classes inherits from "PooledObject.cpp", which makes them easier to handle.
@@ -18,6 +25,8 @@ I went with the approach of continously moving the PLAYER forward and placing ou
  
  
 # Part 2
-Not done yet, write more about this later.
+For the second part I added the highscore list and a second player that controls with the arrow keys. 
 
-Expect; Highscore
+It was a bit of a struggle to implement the second player using the same keyboard in a clean way. I first tried to bind the inputs from the newly created PlayerController, but it didn't really work when using the same keyboard. However I managed to get it working by binding the player two inputs from the player one.  
+
+
