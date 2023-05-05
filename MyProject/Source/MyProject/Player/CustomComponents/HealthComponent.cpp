@@ -45,32 +45,13 @@ void UHealthComponent::UpdateHealth()
 {
 	if (HasTempImmunity) return;
 	
-	CurrentHealth -= 1;
-
-	if(CurrentHealth == 0)
-	{
-		OnDeath();
-	}
-	else
-	{
-		OnHit();
-	}
+	GameMode->UpdateHealth();
 	
 	if (!HasTempImmunity)
 	{
 		HasTempImmunity = true;
 		TimeElapsed = 0;
 	}
-}
-
-void UHealthComponent::OnHit()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Hit"));
-}
-
-void UHealthComponent::OnDeath()
-{
-	GameMode->ResetGame();
 }
 
 
