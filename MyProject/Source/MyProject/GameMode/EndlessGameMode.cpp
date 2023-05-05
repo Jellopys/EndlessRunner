@@ -7,12 +7,16 @@
 #include "PooledObject.h"
 #include "Kismet/GameplayStatics.h"
 #include "MyProject/Player/PlayerCharacter.h"
+#include "Algo/Reverse.h"
 
-
-// Sets default values
 AEndlessGameMode::AEndlessGameMode()
 {
 	PrimaryActorTick.bCanEverTick = true;
+}
+
+UPlayerMovementComponent* AEndlessGameMode::GetP2MovementComp()
+{
+	return PlayerTwoMovementComp;
 }
 
 void AEndlessGameMode::BeginPlay()
@@ -20,59 +24,76 @@ void AEndlessGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	World = GetWorld();
+	LoadGame();
 	
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &AEndlessGameMode::SetPlayerRef,
-		1, false, 1);
+	UGameplayStatics::CreatePlayer(World, -1);
+	SetPlayerRef();
 }
 
 void AEndlessGameMode::ResetGame()
 {
-	UE_LOG(LogTemp,Warning,TEXT("Resetting Game"));
 	SaveGame();
 	CurrentScore = 0;
 	UGameplayStatics::OpenLevel(World, "Map_TestingGround");
 }
 
-void AEndlessGameMode::AddPoints()
+void AEndlessGameMode::UpdateHealth()
 {
-	
-}
+	CurrentLives -= 1;
 
-APlayerCharacter* AEndlessGameMode::GetPlayerRef()
-{
-	return PlayerRef;
+	if(CurrentLives == 0)
+	{
+		ResetGame();
+	}
 }
 
 void AEndlessGameMode::SaveGame()
 {
-	// Creates a Save Game Object Instance
-	UEndlessSaveGame* SaveGameInstance = Cast<UEndlessSaveGame>(UGameplayStatics::CreateSaveGameObject(UEndlessSaveGame::StaticClass()));
+	if (UEndlessSaveGame* SaveGameInstance = Cast<UEndlessSaveGame>(UGameplayStatics::CreateSaveGameObject(UEndlessSaveGame::StaticClass())))
+	{
+		UEndlessSaveGame* LoadedGame = Cast<UEndlessSaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("SavedGameSlot"), 0));
+		TArray<int> TempList = LoadedGame->HighScoreList;
 
-	// Add score to the saved game
-	SaveGameInstance->AddHighScore(CurrentScore);
+		if (TempList.Num() < 10)
+		{
+			TempList.Add(CurrentScore);
+		}
+		else if (CurrentScore > TempList[9])
+		{
+			TempList.Add(CurrentScore);
+			TempList.RemoveAt(9);
+		}
+		
+		TempList.Sort();
+		Algo::Reverse(TempList);
 	
-	// Saves the game
-	UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("SavedGameSlot"), 0);
-	
+		SaveGameInstance->HighScoreList = TempList;
+		UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("SavedGameSlot"), 0);
+	}	
 }
 
 void AEndlessGameMode::LoadGame()
 {
-	// // Creates a Save Game Object Instance
-	// UEndlessSaveGame* SaveGameInstance = Cast<UEndlessSaveGame>(UGameplayStatics::CreateSaveGameObject(UEndlessSaveGame::StaticClass()));
 	// Loads the saved game
-	UEndlessSaveGame* SaveGameInstance = Cast<UEndlessSaveGame>(UGameplayStatics::LoadGameFromSlot("SavedGameSlot", 0));
-	// Generate the Highscore List
-	HighScoreList = SaveGameInstance->GetHighScoreList();
+	if(UEndlessSaveGame* SaveGameInstance = Cast<UEndlessSaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("SavedGameSlot"), 0)))
+	{
+		// Generate the Highscore List
+		HighScoreList = SaveGameInstance->HighScoreList;
+	}
 }
 
 void AEndlessGameMode::SetPlayerRef()
 {
-	PlayerRef = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerPawn(World, 0));
+	PlayerOneRef = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerPawn(World, 0));
+	PlayerTwoRef = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerPawn(World, 1));
 
-	if (PlayerRef == nullptr)
+	if (PlayerTwoRef == nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Could not get Player Ref"));
+		UE_LOG(LogTemp, Warning, TEXT("Could not get Player two"));
+	}
+	else
+	{
+		PlayerTwoMovementComp = PlayerTwoRef->GetP2MovementComponent();
 	}
 }
 
@@ -86,10 +107,8 @@ void AEndlessGameMode::Tick(float DeltaTime)
 		CurrentScore += 1;
 		Timer = 0;
 	}
-	
 
 	if (DifficultyMultiplier >= MaxDifficulty) return;
 	
 	DifficultyMultiplier += DeltaTime * 0.1f;
-	// UE_LOG(LogTemp,Warning, TEXT("DifficultyMultiplier is: %f"), DifficultyMultiplier);
 }

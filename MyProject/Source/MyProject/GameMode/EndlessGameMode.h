@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EndlessSaveGame.h"
 #include "GameFramework/GameModeBase.h"
 #include "EndlessGameMode.generated.h"
 
+class UPlayerMovementComponent;
 class APlayerCharacter;
 
 UCLASS()
@@ -15,15 +17,9 @@ class MYPROJECT_API AEndlessGameMode : public AGameModeBase
 
 public:
 	AEndlessGameMode();
-
-	// Functions 
+	
 	UFUNCTION(BlueprintCallable)
 	void ResetGame();
-	UFUNCTION(BlueprintCallable)
-	void AddPoints();
-	UFUNCTION(BlueprintCallable)
-	APlayerCharacter* GetPlayerRef();
-
 	
 	UPROPERTY()
 	UWorld* World;
@@ -44,20 +40,32 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CurrentScore = 0;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int CurrentLives = 3;
 
+	void UpdateHealth();
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<int> HighScoreList;
 
+	UPlayerMovementComponent* GetP2MovementComp();
 	
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
 	float Timer;
-
+	
 	void SaveGame();
 	void LoadGame();
 	void SetPlayerRef();
-	APlayerCharacter* PlayerRef;
+	UPROPERTY()
+	APlayerCharacter* PlayerOneRef;
+	UPROPERTY()
+	APlayerCharacter* PlayerTwoRef;
+	UPROPERTY()
+	UPlayerMovementComponent* PlayerTwoMovementComp;
+
 	FTimerHandle TimerHandle;
 };

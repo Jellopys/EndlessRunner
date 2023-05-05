@@ -15,11 +15,8 @@ class MYPROJECT_API UEndlessSaveGame : public USaveGame
 
 public:
 	UEndlessSaveGame();
-	
-	void AddHighScore(int Score);
-	void SortHighScoreList(int Score);
-	TArray<int> GetHighScoreList();
 
-protected:
+	UPROPERTY(EditAnywhere)
 	TArray<int> HighScoreList;
+	
 };

@@ -43,16 +43,15 @@ void AObjectPoolManager::SpawnSections()
 	Section->SetActorLocation(FVector(0, SectionLength * SpawnIndex, 0));
 	
 	SpawnIndex++;
-	
-	SpawnObstacles();
+
+	int random = FMath::RandRange(0, 10);
+	if (random > 1)
+	{
+		SpawnObstacles();
+	}
 	
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &AObjectPoolManager::SpawnSections,
 		0.1f, false, GameMode->SpawnMultiplier / GameMode->DifficultyMultiplier);
-
-	
-
-	// PickupsPoolComponent->SpawnPoolObject();
-	// ObstaclesPoolComponent->SpawnPoolObject();
 }
 
 void AObjectPoolManager::SpawnObstacles()

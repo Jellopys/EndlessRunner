@@ -35,11 +35,4 @@ protected:
 	void HandleImmunityTimer(float DeltaTime);
 	UFUNCTION(BlueprintCallable)
 	void UpdateHealth();
-	UFUNCTION()
-	void OnHit();
-	UFUNCTION()
-	void OnDeath();
-
-	int CurrentHealth = 3;
-	int MaxHealth = 3;
 };

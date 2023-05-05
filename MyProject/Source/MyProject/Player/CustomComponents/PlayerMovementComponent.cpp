@@ -83,18 +83,18 @@ void UPlayerMovementComponent::MoveDown()
 
 void UPlayerMovementComponent::MoveRight()
 {
-	if (CurrentXLoc == 2) return;
-	
-	CurrentXLoc++;
-	TimeElapsed = 0;
-	XDestination += 200;
-}
-
-void UPlayerMovementComponent::MoveLeft()
-{
 	if (CurrentXLoc == 0) return;
 	
 	CurrentXLoc--;
 	TimeElapsed = 0;
 	XDestination -= 200;
+}
+
+void UPlayerMovementComponent::MoveLeft()
+{
+	if (CurrentXLoc == 2) return;
+	
+	CurrentXLoc++;
+	TimeElapsed = 0;
+	XDestination += 200;
 }

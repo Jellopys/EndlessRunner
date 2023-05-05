@@ -30,7 +30,7 @@ protected:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void Move(float DeltaTime);
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
 	APlayerCharacter* PlayerCharacter;
 	UPROPERTY()
 	APawn* Owner;
@@ -52,7 +52,4 @@ protected:
 	int CurrentZLoc = 0;
 	float XDestination = 0;
 	float ZDestination = 300;
-
-	TArray<int> XLocations; // Might use this for cleaner code
-	TArray<int> ZLocations;
 };

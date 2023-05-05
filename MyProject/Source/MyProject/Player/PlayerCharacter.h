@@ -3,10 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-// #include "Camera/CameraComponent.h"
-// #include "Components/CapsuleComponent.h"
-// #include "GameFramework/Pawn.h"
-// #include "GameFramework/SpringArmComponent.h"
 #include "PlayerCharacter.generated.h"
 
 class UPlayerMovementComponent;
@@ -14,6 +10,7 @@ class UCameraComponent;
 class UCapsuleComponent;
 class APawn;
 class USpringArmComponent;
+class AEndlessGameMode;
 
 UCLASS()
 class MYPROJECT_API APlayerCharacter : public APawn
@@ -22,12 +19,19 @@ class MYPROJECT_API APlayerCharacter : public APawn
 
 public:
 	APlayerCharacter();
+	
+	UPlayerMovementComponent* GetP2MovementComponent();
 
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
-
+	
+	AEndlessGameMode* GameMode;
+	UWorld* World;
+	UPlayerMovementComponent* P2MovementComp;
+	void GetP2MovComp();
+	
 	// Components
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UStaticMeshComponent> Mesh;
@@ -38,7 +42,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<USpringArmComponent> SpringArm;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UPlayerMovementComponent> MovementComponent;
+	UPlayerMovementComponent* MovementComponent;
 	
 	UPROPERTY()
 	TObjectPtr<APlayerController> PlayerController;
@@ -57,6 +61,9 @@ protected:
 	void MoveRight();
 	void MoveDown();
 	void MoveLeft();
-	void Space();
-	
+
+	void MoveUp2();
+	void MoveRight2();
+	void MoveDown2();
+	void MoveLeft2();
 };
