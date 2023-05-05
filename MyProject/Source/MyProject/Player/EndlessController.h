@@ -18,12 +18,13 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
+	// virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
 
 	UPROPERTY()
 	AEndlessGameMode* GameMode;
 	UPROPERTY()
 	UWorld* World;
+	UPROPERTY()
 	UPlayerMovementComponent* P2MovementComp;
 
 	void MoveUp();

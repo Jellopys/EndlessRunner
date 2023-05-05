@@ -36,7 +36,11 @@ void APlayerCharacter::BeginPlay()
 	World = GetWorld();
 	GameMode = Cast<AEndlessGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 
-	GetP2MovComp();
+	FTimerHandle TimerHandle;
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &APlayerCharacter::GetP2MovComp,
+		1, false, 0.2f);
+	
+	// GetP2MovComp();
 }
 
 void APlayerCharacter::Tick(float DeltaTime)
@@ -90,8 +94,6 @@ void APlayerCharacter::MoveLeft()
 	MovementComponent->MoveLeft();
 }
 
-
-
 void APlayerCharacter::GetP2MovComp()
 {
 	P2MovementComp = GameMode->GetP2MovementComp();
@@ -99,22 +101,26 @@ void APlayerCharacter::GetP2MovComp()
 
 void APlayerCharacter::MoveUp2()
 {
-	P2MovementComp->MoveUp();
+	if (P2MovementComp != nullptr)
+		P2MovementComp->MoveUp();
 }
 
 void APlayerCharacter::MoveDown2()
 {
-	P2MovementComp->MoveDown();
+	if (P2MovementComp != nullptr)
+		P2MovementComp->MoveDown();
 }
 
 void APlayerCharacter::MoveRight2()
 {
-	P2MovementComp->MoveRight();
+	if (P2MovementComp != nullptr)
+		P2MovementComp->MoveRight();
 }
 
 void APlayerCharacter::MoveLeft2()
 {
-	P2MovementComp->MoveLeft();
+	if (P2MovementComp != nullptr)
+		P2MovementComp->MoveLeft();
 }
 
 

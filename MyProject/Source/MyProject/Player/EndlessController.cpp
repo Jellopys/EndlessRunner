@@ -22,19 +22,18 @@ void AEndlessController::BeginPlay()
 	GameMode = Cast<AEndlessGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 
 	// GetWorldTimerManager().SetTimer(TimerHandle, this, &AEndlessController::GetP2MovComp,
-	// 	1, false, 0.5f);
-	
+	// 	1, false, 0.2f);
 }
 
-void AEndlessController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	check(PlayerInputComponent)
-	
-	PlayerInputComponent->BindAction("MoveUpP2", IE_Pressed, this, &AEndlessController::MoveUp);
-	PlayerInputComponent->BindAction("MoveDownP2", IE_Pressed, this, &AEndlessController::MoveDown);
-	PlayerInputComponent->BindAction("MoveRightP2", IE_Pressed, this, &AEndlessController::MoveRight);
-	PlayerInputComponent->BindAction("MoveLeftP2", IE_Pressed, this, &AEndlessController::MoveLeft);
-}
+// void AEndlessController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+// {
+// 	check(PlayerInputComponent)
+// 	
+// 	PlayerInputComponent->BindAction("MoveUpP2", IE_Pressed, this, &AEndlessController::MoveUp);
+// 	PlayerInputComponent->BindAction("MoveDownP2", IE_Pressed, this, &AEndlessController::MoveDown);
+// 	PlayerInputComponent->BindAction("MoveRightP2", IE_Pressed, this, &AEndlessController::MoveRight);
+// 	PlayerInputComponent->BindAction("MoveLeftP2", IE_Pressed, this, &AEndlessController::MoveLeft);
+// }
 
 void AEndlessController::MoveUp()
 {
